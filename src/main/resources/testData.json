@@ -5,12 +5,25 @@
   },
 
   "invalidUser": {
-    "username": "wrong_user",
-    "password": "wrong_password"
+    "username": "wrong",
+    "password": "wrong"
   },
 
   "emptyPassword": {
     "username": "standard_user",
     "password": ""
+  },
+
+  "cartProducts": [
+    "Sauce Labs Backpack",
+    "Sauce Labs Bolt T-Shirt",
+    "Sauce Labs Onesie"
+  ],
+
+  "checkoutInformation": {
+    "firstName": "Sara",
+    "lastName": "Ali",
+    "postalCode": "12345"
   }
+
 }

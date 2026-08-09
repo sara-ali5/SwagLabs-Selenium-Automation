@@ -18,6 +18,8 @@
         <classes>
             <class name="Tests.LoginTest"/>
             <class name="Tests.InventoryTest"/>
+            <class name="Tests.CartTest"/>
+
         </classes>
     </test>
 
@@ -32,6 +34,9 @@
         <classes>
             <class name="Tests.LoginTest"/>
             <class name="Tests.InventoryTest"/>
+            <class name="Tests.CartTest"/>
+
+
         </classes>
     </test>
 

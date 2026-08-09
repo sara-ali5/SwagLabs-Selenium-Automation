@@ -1,17 +1,19 @@
 package Base;
+import Pages.CartPage;
+import Pages.CheckoutPage;
+import Pages.InventoryPage;
+import Pages.LoginPage;
 import Utilities.CustomWebDriverListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-
 import java.time.Duration;
 
 public class BaseTest {
@@ -22,35 +24,61 @@ public class BaseTest {
     protected WebDriverListener listener;
     protected SoftAssert softAssert;
 
+    public LoginPage loginPage;
+    public InventoryPage inventoryPage;
+    public CartPage cartPage;
+    public CheckoutPage CheckoutPage;
 
 
-    @BeforeClass(alwaysRun = true)
-    public void beforeClass() {
-        System.out.println("===== BEFORE CLASS =====");
+    @BeforeMethod(alwaysRun = true)
+    public void setUp() {
+
+        System.out.println("===== SET UP =====");
+        System.out.println("Creating Driver for: "
+                + this.getClass().getSimpleName());
 
         listener = new CustomWebDriverListener();
+
         WebDriverManager.chromedriver().setup();
-        driver = new EventFiringDecorator(listener)
-                .decorate(new ChromeDriver());
+
+        driver = new EventFiringDecorator(listener).decorate(new ChromeDriver());
 
         driver.manage().window().maximize();
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    }
+        wait = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(10)
+        );
 
-    @BeforeMethod(alwaysRun = true)
-    public void beforeMethod() {
-        System.out.println("===== BEFORE METHOD =====");
+        // Initialize Page Objects
+        loginPage = new LoginPage(driver);
+        inventoryPage = new InventoryPage(driver);
+        cartPage = new CartPage(driver);
+        CheckoutPage = new CheckoutPage(driver);
+
+        // Open application
         driver.get(URL);
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.id("user-name")
+                )
+        );
+
         softAssert = new SoftAssert();
     }
 
-    @AfterClass
-    public void afterClass() {
 
-        if (driver != null)
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+
+        System.out.println("===== TEAR DOWN =====");
+
+        if (driver != null) {
             driver.quit();
-
+            driver = null;
+        }
     }
-
 }
+
+

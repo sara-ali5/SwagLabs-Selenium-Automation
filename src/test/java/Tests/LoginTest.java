@@ -1,9 +1,9 @@
 package Tests;
-
 import Base.BaseTest;
 import Pages.InventoryPage;
 import Pages.LoginPage;
 import Utilities.DataDriven;
+import Utilities.ScreenshotUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.qameta.allure.*;
 import org.testng.Assert;
@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 @Epic("Swag Labs")
 @Feature("Login Feature")
 public class LoginTest extends BaseTest {
-
     LoginPage loginPage;
     InventoryPage inventoryPage;
     JsonNode data = DataDriven.jsonReader();
@@ -20,8 +19,7 @@ public class LoginTest extends BaseTest {
 
 
 
-    @Test(groups = {"smoke", "regression"},
-            description = "Verify successful login with valid credentials")
+    @Test(groups = {"smoke", "regression"}, description = "Verify successful login with valid credentials")
     @Story("Successful Login")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that the user can login successfully using valid credentials loaded from JSON.")
@@ -37,6 +35,7 @@ public class LoginTest extends BaseTest {
         String password = data.get("validUser").get("password").asText();
 
         loginPage.login(username, password);
+        ScreenshotUtils.attachScreenshot("Inventory Page", driver);
 
         Assert.assertTrue(inventoryPage.isInventoryPage(),
                 "User is not redirected to Inventory Page");
@@ -45,8 +44,7 @@ public class LoginTest extends BaseTest {
 
 
 
-    @Test(groups = {"regression"},
-            description = "Verify login with invalid credentials")
+    @Test(groups = {"regression"})
     @Story("Invalid Login")
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that an appropriate error message is displayed when invalid credentials are used.")
@@ -68,8 +66,7 @@ public class LoginTest extends BaseTest {
 
 
 
-    @Test(groups = {"regression"},
-            description = "Verify login without password")
+    @Test(groups = {"regression"})
     @Story("Login Without Password")
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that the system displays an error message when the password field is empty.")

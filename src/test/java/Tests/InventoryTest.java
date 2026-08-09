@@ -3,6 +3,7 @@ import Base.BaseTest;
 import Pages.InventoryPage;
 import Pages.LoginPage;
 import Utilities.DataDriven;
+import Utilities.ScreenshotUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
@@ -29,7 +30,7 @@ public class InventoryTest extends BaseTest {
         loginPage.login(username, password);
     }
 
-    @Test(groups ={"smoke", "regression"},
+    @Test(groups ={"smoke"},
             description = "Verify inventory page elements")
     @Story("Inventory Page")
     @Severity(SeverityLevel.CRITICAL)
@@ -40,6 +41,8 @@ public class InventoryTest extends BaseTest {
         softAssert.assertTrue(
                 inventoryPage.isInventoryPage(),
                 "User is not redirected to Inventory Page");
+
+        ScreenshotUtils.attachScreenshot("Products Loaded", driver);
 
         // Verify Page Title
         softAssert.assertEquals(

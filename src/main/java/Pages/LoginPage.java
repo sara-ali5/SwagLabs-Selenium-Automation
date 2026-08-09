@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+
 public class LoginPage extends BasePages {
 
     public LoginPage(WebDriver driver) {
@@ -33,6 +34,7 @@ public class LoginPage extends BasePages {
 
     @Step("Login using username: {0}")
     public void login(String user, String pass) {
+
         enterUsername(user);
         enterPassword(pass);
         clickLogin();
