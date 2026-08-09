@@ -188,7 +188,7 @@ Separating test data from test scripts makes the framework easier to maintain an
 
 1. Open the project in IntelliJ IDEA.
 2. Make sure Maven dependencies are installed.
-3. Open `testng.xml`.
+3. Open `runner.xml`.
 4. Run the TestNG suite.
 
 ---
